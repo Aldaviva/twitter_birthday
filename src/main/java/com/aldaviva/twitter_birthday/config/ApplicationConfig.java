@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Configuration
@@ -35,8 +34,8 @@ public class ApplicationConfig {
         config.property(ClientProperties.READ_TIMEOUT, 5000);
         config.property(ClientProperties.FOLLOW_REDIRECTS, true);
 
-        final Logger httpLogger = Logger.getLogger("http");
-        httpLogger.setLevel(Level.ALL);
+        final Logger httpLogger = java.util.logging.Logger.getLogger("http");
+        httpLogger.setLevel(java.util.logging.Level.ALL);
         config.register(new LoggingFeature(httpLogger, LoggingFeature.Verbosity.PAYLOAD_ANY));
 
         return ClientBuilder.newClient(config);
@@ -78,7 +77,7 @@ public class ApplicationConfig {
         }
 
         try {
-            locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("classpath:instagram_rss_conf/*.properties")));
+            locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("classpath:twitter_birthday_conf/*.properties")));
         } catch (final FileNotFoundException e) {
             // skip missing classpath properties files, compiled values will be used for these files.
         }

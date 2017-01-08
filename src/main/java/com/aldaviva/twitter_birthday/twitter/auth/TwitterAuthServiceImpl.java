@@ -38,7 +38,7 @@ public class TwitterAuthServiceImpl implements TwitterAuthService {
 
     @Override
     public TwitterSession startSession() throws TwitterException {
-        LOGGER.info("Starting new Twitter session");
+        LOGGER.info("Starting new Twitter session for user {}", twitterConfig.getUsername());
         final TwitterSession session = new TwitterSession();
         session.setAuthenticationToken(twitterConfig.getAuthToken());
 

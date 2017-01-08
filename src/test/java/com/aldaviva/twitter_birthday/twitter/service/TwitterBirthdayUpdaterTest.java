@@ -22,9 +22,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.*;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
@@ -48,16 +45,15 @@ public class TwitterBirthdayUpdaterTest extends JerseyClientTest {
     @Path("/i/profiles/update")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonNode update(@Context UriInfo uriInfo,
+    public JsonNode update(@Context final UriInfo uriInfo,
                            @Context final HttpHeaders headers,
-                           MultivaluedMap<String, String> body) {
+                           final MultivaluedMap<String, String> body) {
         final DateTime expectedBirthday = new DateTime().withTimeAtStartOfDay().withYear(1984);
 
         assertEquals(headers.getHeaderString("X-Requested-With"), "XMLHttpRequest", "X-Requested-With");
         assertEquals(headers.getHeaderString("Referer"), "https://twitter.com/dril", "Referer");
         assertEquals(headers.getCookies().get("auth_token").getValue(), "a", "authToken");
         assertEquals(headers.getCookies().get("_twitter_sess").getValue(), "c", "_twitter_sess");
-        assertThat(headers.getHeaderString(HttpHeaders.COOKIE), not(containsString("$Version")));
         assertEquals(body.getFirst("authenticity_token"), "b", "authenticity_token");
 
         assertEquals(body.getFirst("page_context"), "me", "page_context");
@@ -79,5 +75,15 @@ public class TwitterBirthdayUpdaterTest extends JerseyClientTest {
     @Test
     public void updateBirthday() throws TwitterException {
         twitterBirthdayUpdater.updateBirthday();
+    }
+
+    @Test
+    public void calculateBirthday(){
+        final DateTime actual = twitterBirthdayUpdater.getBirthday();
+        final DateTime now = new DateTime();
+
+        assertEquals(actual.getYear(), 1984, "year");
+        assertEquals(actual.getMonthOfYear(), now.getMonthOfYear(), "month");
+        assertEquals(actual.getDayOfMonth(), now.getDayOfMonth(), "day");
     }
 }

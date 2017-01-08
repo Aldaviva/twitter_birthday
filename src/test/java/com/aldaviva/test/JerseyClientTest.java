@@ -1,5 +1,6 @@
 package com.aldaviva.test;
 
+import com.aldaviva.twitter_birthday.twitter.service.TwitterBirthdayUpdaterTest;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTestNg;
 import org.mockito.Mock;
@@ -27,7 +28,7 @@ import static org.testng.Assert.assertNotNull;
  * 4. Add a @Path+@GET/@POST+@Produces+@Consumes method in your test class to stub the HTTP response. Assertions are supported.
  * 5. In a @Test method, call a method on your service which makes HTTP requests.
  *
- * @see com.aldaviva.twitter.birthday.twitter.TwitterBirthdayUpdaterTest
+ * @see TwitterBirthdayUpdaterTest
  */
 @Path("/")
 @SuppressWarnings("RestResourceMethodInspection")
