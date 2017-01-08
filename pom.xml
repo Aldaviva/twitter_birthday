@@ -8,6 +8,38 @@
     <artifactId>twitter_birthday</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <description>Update the birthday on your Twitter profile so you always get balloons.</description>
+    <url>https://github.com/Aldaviva/twitter_birthday</url>
+    <inceptionYear>2017</inceptionYear>
+
+    <scm>
+        <url>https://github.com/Aldaviva/twitter_birthday</url>
+        <connection>scm:git:git://github.com/Aldaviva/twitter_birthday.git</connection>
+        <developerConnection>scm:git:ssh://github.com:Aldaviva/twitter_birthday.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/Aldaviva/twitter_birthday/issues</url>
+        <system>GitHub</system>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Ben Hutchison</name>
+            <url>https://aldaviva.com</url>
+            <email>ben@aldaviva.com</email>
+            <timezone>-8</timezone>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
