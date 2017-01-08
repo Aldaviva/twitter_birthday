@@ -69,8 +69,6 @@ Change the values in `config.properties`.
 java -jar twitter_birthday.jar
 ```
 <!-- -->
-```bash
-01:15:35.466 [main] INFO  c.a.t.t.auth.TwitterAuthServiceImpl - Starting new Twitter session for user dril
-01:15:36.260 [main] INFO  c.a.t.t.s.TwitterBirthdayUpdaterImpl - Updating birthday to January 8, 1984
-01:15:36.398 [main] INFO  c.a.t.t.s.TwitterBirthdayUpdaterImpl - Successfully updated birthday on Twitter profile to January 8, 1984
-```
+    01:15:35.466 [main] INFO  c.a.t.t.auth.TwitterAuthServiceImpl - Starting new Twitter session for user dril
+    01:15:36.260 [main] INFO  c.a.t.t.s.TwitterBirthdayUpdaterImpl - Updating birthday to January 8, 1984
+    01:15:36.398 [main] INFO  c.a.t.t.s.TwitterBirthdayUpdaterImpl - Successfully updated birthday on Twitter profile to January 8, 1984
