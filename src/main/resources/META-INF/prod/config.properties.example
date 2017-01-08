@@ -1,4 +1,6 @@
 twitter.authToken=abcdefg12345
 twitter.username=dril
 twitter.baseUri=https://twitter.com
+twitter.birthdayVisibility.day=WE_FOLLOW_EACH_OTHER
+twitter.birthdayVisibility.year=ONLY_ME
 birthYear=1984

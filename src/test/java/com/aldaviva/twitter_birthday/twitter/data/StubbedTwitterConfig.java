@@ -25,4 +25,14 @@ public class StubbedTwitterConfig extends TwitterConfig {
     public String getAuthToken() {
         return "abcdefg";
     }
+
+    @Override
+    public BirthdayVisibility getBirthDayVisibility() {
+        return BirthdayVisibility.WE_FOLLOW_EACH_OTHER;
+    }
+
+    @Override
+    public BirthdayVisibility getBirthYearVisibility() {
+        return BirthdayVisibility.WE_FOLLOW_EACH_OTHER;
+    }
 }

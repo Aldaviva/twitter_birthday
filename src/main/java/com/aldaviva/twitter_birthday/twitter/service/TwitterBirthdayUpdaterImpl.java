@@ -45,8 +45,8 @@ public class TwitterBirthdayUpdaterImpl implements TwitterBirthdayUpdater {
         form.putSingle(TwitterConstants.AUTHENTICITY_TOKEN, session.getAuthenticityToken());
         form.putSingle("page_context", "me");
         form.putSingle("session_context", "profile");
-        form.putSingle("user[birthdate][birthday_visibility]", "1"); //TODO allow the TwitterConfig to customize these enum values
-        form.putSingle("user[birthdate][birthyear_visibility]", "1");
+        form.putSingle("user[birthdate][birthday_visibility]", String.valueOf(twitterConfig.getBirthDayVisibility().getFormValue()));
+        form.putSingle("user[birthdate][birthyear_visibility]", String.valueOf(twitterConfig.getBirthYearVisibility().getFormValue()));
         form.putSingle("user[birthdate][day]", String.valueOf(birthday.getDayOfMonth()));
         form.putSingle("user[birthdate][month]", String.valueOf(birthday.getMonthOfYear()));
         form.putSingle("user[birthdate][year]", String.valueOf(birthday.getYear()));
