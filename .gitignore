@@ -3,3 +3,7 @@ dependency-reduced-pom.xml
 src/main/resources/META-INF/prod/config.properties
 target/
 *.iml
+/.settings/
+/.project
+/.classpath
+/test-output/

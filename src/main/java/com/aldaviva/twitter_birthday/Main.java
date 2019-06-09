@@ -10,14 +10,14 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args){
-        SpringConfig springConfig = new SpringConfig();
+    public static void main(final String[] args){
+        final SpringConfig springConfig = new SpringConfig();
         springConfig.onStartup();
 
         int exitCode = 0;
         try {
             springConfig.getApplicationContext().getBean(TwitterBirthdayUpdater.class).updateBirthday();
-        } catch (TwitterException e) {
+        } catch (final TwitterException e) {
             LOGGER.error("Failed to update birthday in Twitter profile.", e);
             exitCode = 1;
         } finally {

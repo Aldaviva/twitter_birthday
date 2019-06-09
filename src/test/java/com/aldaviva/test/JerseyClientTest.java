@@ -1,6 +1,16 @@
 package com.aldaviva.test;
 
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+import static org.testng.Assert.*;
+
 import com.aldaviva.twitter_birthday.twitter.service.TwitterBirthdayUpdaterTest;
+
+import java.net.URI;
+import javax.ws.rs.Path;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTestNg;
 import org.mockito.Mock;
@@ -8,16 +18,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.testng.annotations.BeforeMethod;
-
-import javax.ws.rs.Path;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Application;
-import java.net.URI;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.testng.Assert.assertNotNull;
 
 /**
  * Mock out a Jersey Client so your service client tests don't hit the network.
@@ -31,28 +31,27 @@ import static org.testng.Assert.assertNotNull;
  * @see TwitterBirthdayUpdaterTest
  */
 @Path("/")
-@SuppressWarnings("RestResourceMethodInspection")
 public abstract class JerseyClientTest extends JerseyTestNg.ContainerPerMethodTest {
 
-    @Mock protected Client httpClient;
+	@Mock protected Client httpClient;
 
-    @BeforeMethod
-    public void initHttpClient() {
-        MockitoAnnotations.initMocks(this);
+	@BeforeMethod
+	public void initHttpClient() {
+		MockitoAnnotations.initMocks(this);
 
-        when(httpClient.target(any(URI.class))).thenAnswer(new Answer<WebTarget>() {
-            @Override
-            public WebTarget answer(final InvocationOnMock invocation) throws Throwable {
-                final URI uri = invocation.getArgumentAt(0, URI.class);
-                assertNotNull(uri, "client target URI");
-                return JerseyClientTest.this.target(uri.getPath());
-            }
-        });
-    }
+		when(httpClient.target(any(URI.class))).thenAnswer(new Answer<WebTarget>() {
+			@Override
+			public WebTarget answer(final InvocationOnMock invocation) throws Throwable {
+				final URI uri = invocation.getArgumentAt(0, URI.class);
+				assertNotNull(uri, "client target URI");
+				return JerseyClientTest.this.target(uri.getPath());
+			}
+		});
+	}
 
-    @Override
-    protected Application configure() {
-        return new ResourceConfig(getClass());
-    }
+	@Override
+	protected Application configure() {
+		return new ResourceConfig(getClass());
+	}
 
 }

@@ -26,64 +26,64 @@ import java.util.logging.Logger;
 @ComponentScan("com.aldaviva.twitter_birthday")
 public class ApplicationConfig {
 
-    @Bean
-    public Client httpClient(){
-        final ClientConfig config = new ClientConfig();
-        config.register(JacksonFeature.class);
-        config.property(ClientProperties.CONNECT_TIMEOUT, 5000);
-        config.property(ClientProperties.READ_TIMEOUT, 5000);
-        config.property(ClientProperties.FOLLOW_REDIRECTS, true);
+	@Bean
+	public Client httpClient() {
+		final ClientConfig config = new ClientConfig();
+		config.register(JacksonFeature.class);
+		config.property(ClientProperties.CONNECT_TIMEOUT, 5000);
+		config.property(ClientProperties.READ_TIMEOUT, 5000);
+		config.property(ClientProperties.FOLLOW_REDIRECTS, true);
 
-        final Logger httpLogger = java.util.logging.Logger.getLogger("http");
-        httpLogger.setLevel(java.util.logging.Level.ALL);
-        config.register(new LoggingFeature(httpLogger, LoggingFeature.Verbosity.PAYLOAD_ANY));
+		final Logger httpLogger = java.util.logging.Logger.getLogger("http");
+		httpLogger.setLevel(java.util.logging.Level.ALL);
+		config.register(new LoggingFeature(httpLogger, LoggingFeature.Verbosity.PAYLOAD_ANY));
 
-        return ClientBuilder.newClient(config);
-    }
+		return ClientBuilder.newClient(config);
+	}
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL);
-        return objectMapper;
-    }
+	@Bean
+	public ObjectMapper objectMapper() {
+		final ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		objectMapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL);
+		return objectMapper;
+	}
 
-    /**
-     * Configuration comes from
-     *
-     * <ol>
-     * <li><code>instagram_rss_conf/*.properties</code> on the classpath, like in Jetty's <code>conf</code> directory (highest priority)</li>
-     * <li><code>META-INF/dev/*.properties</code>, if the servlet container is launched with <code>-Denv=dev</code></li>
-     * <li><code>META-INF/test/*.properties</code>, if launched by Surefire/TestNG</li>
-     * <li><code>META-INF/prod/*.properties</code> (lowest priority)</li>
-     * </ol>
-     */
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() throws IOException {
-        final PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        final List<Resource> locations = new ArrayList<>();
-        final PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
+	/**
+	 * Configuration comes from
+	 *
+	 * <ol>
+	 * <li><code>instagram_rss_conf/*.properties</code> on the classpath, like in Jetty's <code>conf</code> directory (highest priority)</li>
+	 * <li><code>META-INF/dev/*.properties</code>, if the servlet container is launched with <code>-Denv=dev</code></li>
+	 * <li><code>META-INF/test/*.properties</code>, if launched by Surefire/TestNG</li>
+	 * <li><code>META-INF/prod/*.properties</code> (lowest priority)</li>
+	 * </ol>
+	 */
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() throws IOException {
+		final PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+		final List<Resource> locations = new ArrayList<>();
+		final PathMatchingResourcePatternResolver pathMatchingResourcePatternResolver = new PathMatchingResourcePatternResolver();
 
-        locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("META-INF/prod/*.properties")));
+		locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("META-INF/prod/*.properties")));
 
-        final String environment = System.getProperty(SpringConfig.ENV);
-        if(environment != null) {
-            try {
-                locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("META-INF/" + environment + "/*.properties")));
-            } catch (final FileNotFoundException e) {
-                // skip missing dev/test properties files, prod values will be used for these files.
-            }
-        }
+		final String environment = System.getProperty(SpringConfig.ENV);
+		if(environment != null) {
+			try {
+				locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("META-INF/" + environment + "/*.properties")));
+			} catch (final FileNotFoundException e) {
+				// skip missing dev/test properties files, prod values will be used for these files.
+			}
+		}
 
-        try {
-            locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("classpath:twitter_birthday_conf/*.properties")));
-        } catch (final FileNotFoundException e) {
-            // skip missing classpath properties files, compiled values will be used for these files.
-        }
+		try {
+			locations.addAll(Arrays.asList(pathMatchingResourcePatternResolver.getResources("classpath:twitter_birthday_conf/*.properties")));
+		} catch (final FileNotFoundException e) {
+			// skip missing classpath properties files, compiled values will be used for these files.
+		}
 
-        propertySourcesPlaceholderConfigurer.setLocations(locations.toArray(new Resource[] {}));
-        return propertySourcesPlaceholderConfigurer;
-    }
+		propertySourcesPlaceholderConfigurer.setLocations(locations.toArray(new Resource[] {}));
+		return propertySourcesPlaceholderConfigurer;
+	}
 
 }

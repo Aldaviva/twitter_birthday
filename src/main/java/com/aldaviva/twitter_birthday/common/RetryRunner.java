@@ -5,19 +5,18 @@ import java.util.concurrent.ExecutionException;
 
 public class RetryRunner {
 
-    private RetryRunner(){}
+    private RetryRunner() {}
 
     public static <T> T runUntilNoExceptions(final int maxAttempts, final Callable<T> callable) throws ExecutionException {
-        for(int attemptNum = 1; attemptNum <= maxAttempts; attemptNum++){
+        Exception exception = null;
+        for (int attemptNum = 1; attemptNum <= maxAttempts; attemptNum++) {
             try {
                 return callable.call();
-            } catch(final Exception e){
-                if(attemptNum == maxAttempts) {
-                    throw new ExecutionException("Failed after " + attemptNum + " attempts", e);
-                }
+            } catch (final Exception e) {
+                exception = e;
             }
         }
-        return null; // This is unreachable.
+        throw new ExecutionException("Failed after " + maxAttempts + " attempts", exception);
     }
 
 }
