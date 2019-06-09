@@ -22,7 +22,7 @@ import java.util.List;
 @Aspect
 public class CookieSerializationAspect {
 
-	@Pointcut("execution(String javax.ws.rs.ext.RuntimeDelegate.HeaderDelegate.toString(javax.ws.rs.core.Cookie)) && args(cookie)")
+	@Pointcut("execution(String org.glassfish.jersey.message.internal.CookieProvider.toString(javax.ws.rs.core.Cookie)) && args(cookie)")
 	private void cookieProviderToStringPointcut(final Cookie cookie) {
 	}
 
