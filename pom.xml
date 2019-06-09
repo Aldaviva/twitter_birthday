@@ -6,7 +6,7 @@
 
     <groupId>com.aldaviva.twitter_birthday</groupId>
     <artifactId>twitter_birthday</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <description>Update the birthday on your Twitter profile so you always get balloons.</description>
     <url>https://github.com/Aldaviva/twitter_birthday</url>
